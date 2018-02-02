@@ -1,5 +1,6 @@
 import {
-  ADD_TODO, CLEAR_COMPLETED,
+  ADD_TODO,
+  CLEAR_COMPLETED,
   EDIT_TODO,
   TOGGLE_ALL,
   TOGGLE_TODO,
@@ -72,7 +73,8 @@ export default (state = initialState, action) => {
       }
     case CLEAR_COMPLETED:
       return {
-        todos: state.todos.map(todo => todo.completed ? false : todo)
+        todos: state.todos
+          .map(todo => (todo.completed ? false : todo))
           .filter(Boolean)
       }
     default:

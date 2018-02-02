@@ -8,7 +8,7 @@ const pluralize = (number, word) => {
   return `${word}s`
 }
 
-const Footer = ({itemsCount, displayClearBtn, onClearCompleted}) => {
+const Footer = ({ itemsCount, displayClearBtn, onClearCompleted }) => {
   return (
     <footer className="footer">
       <span className="todo-count">
@@ -27,7 +27,11 @@ const Footer = ({itemsCount, displayClearBtn, onClearCompleted}) => {
           <a href="#/completed">Completed</a>
         </li>
       </ul>
-      {displayClearBtn && <button className="clear-completed" onClick={onClearCompleted}>Clear completed</button>}
+      {displayClearBtn && (
+        <button className="clear-completed" onClick={onClearCompleted}>
+          Clear completed
+        </button>
+      )}
     </footer>
   )
 }
