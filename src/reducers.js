@@ -7,14 +7,14 @@ import {
   UPDATE_TODO
 } from './actions'
 
-const initialState = {
-  todos: []
-}
+const initialState = JSON.parse(localStorage.getItem('todos-redux'))
 
 export default (state = initialState, action) => {
+  let result = state
+
   switch (action.type) {
     case ADD_TODO:
-      return {
+      result = {
         todos: [
           ...state.todos,
           {
@@ -24,14 +24,16 @@ export default (state = initialState, action) => {
           }
         ]
       }
+      break
     case TOGGLE_ALL:
-      return {
+      result = {
         todos: state.todos.map(todo => {
           return Object.assign({}, todo, { completed: action.completed })
         })
       }
+      break
     case TOGGLE_TODO:
-      return {
+      result = {
         todos: state.todos.map((todo, i) => {
           if (i !== action.index) {
             return todo
@@ -39,8 +41,9 @@ export default (state = initialState, action) => {
           return Object.assign({}, todo, { completed: action.completed })
         })
       }
+      break
     case EDIT_TODO:
-      return {
+      result = {
         todos: state.todos.map((todo, i) => {
           if (i !== action.index) {
             return Object.assign({}, todo, { editing: false })
@@ -48,15 +51,16 @@ export default (state = initialState, action) => {
           return Object.assign({}, todo, { editing: true })
         })
       }
+      break
     case UPDATE_TODO:
       if (action.value === false) {
-        return {
+        result = {
           todos: state.todos.map(todo =>
             Object.assign({}, todo, { editing: false })
           )
         }
       }
-      return {
+      result = {
         todos: state.todos
           .map((todo, i) => {
             if (i !== action.index) {
@@ -71,13 +75,17 @@ export default (state = initialState, action) => {
           })
           .filter(Boolean)
       }
+      break
     case CLEAR_COMPLETED:
-      return {
+      result = {
         todos: state.todos
           .map(todo => (todo.completed ? false : todo))
           .filter(Boolean)
       }
-    default:
-      return state
+      break
   }
+
+  localStorage.setItem('todos-redux', JSON.stringify(result))
+
+  return result
 }
