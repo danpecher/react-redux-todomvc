@@ -61,7 +61,7 @@ class Todo extends Component {
               onFinishEditing(index, e.target.value)
             }
             if (e.keyCode === 27) {
-              onFinishEditing(index, false)
+              onFinishEditing(index, e.target.value.length > 0 ? title : false)
               this.refs.input.value = title
             }
           }}
