@@ -11,7 +11,7 @@ const App = ({ todos, onEnterTodo, toggleAll }) => {
       <section className="todoapp">
         <Header onEnterTodo={onEnterTodo} />
         <Todos todos={todos} toggleAll={toggleAll} />
-        <Footer />
+        <Footer itemsCount={todos.filter(todo => !todo.completed).length} />
       </section>
 
       <footer className="info">

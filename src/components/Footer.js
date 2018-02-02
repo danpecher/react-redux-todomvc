@@ -1,11 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Footer = () => {
+const pluralize = (number, word) => {
+  if (number === 1) {
+    return word
+  }
+  return `${word}s`
+}
+
+const Footer = ({itemsCount}) => {
   return (
     <footer className="footer">
       <span className="todo-count">
-        <strong>0</strong> item left
+        <strong>{itemsCount}</strong> {pluralize(itemsCount, 'item')} left
       </span>
       <ul className="filters">
         <li>
@@ -25,6 +32,8 @@ const Footer = () => {
   )
 }
 
-Footer.propTypes = {}
+Footer.propTypes = {
+  itemsCount: PropTypes.number.isRequired
+}
 
 export default Footer
