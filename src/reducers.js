@@ -1,4 +1,10 @@
-import { ADD_TODO, TOGGLE_ALL, TOGGLE_TODO } from './actions'
+import {
+  ADD_TODO,
+  EDIT_TODO,
+  TOGGLE_ALL,
+  TOGGLE_TODO,
+  UPDATE_TODO
+} from './actions'
 
 const initialState = {
   todos: []
@@ -30,6 +36,27 @@ export default (state = initialState, action) => {
             return todo
           }
           return Object.assign({}, todo, { completed: action.completed })
+        })
+      }
+    case EDIT_TODO:
+      return {
+        todos: state.todos.map((todo, i) => {
+          if (i !== action.index) {
+            return Object.assign({}, todo, { editing: false })
+          }
+          return Object.assign({}, todo, { editing: true })
+        })
+      }
+    case UPDATE_TODO:
+      return {
+        todos: state.todos.map((todo, i) => {
+          if (i !== action.index) {
+            return todo
+          }
+          return Object.assign({}, todo, {
+            title: action.value,
+            editing: false
+          })
         })
       }
     default:

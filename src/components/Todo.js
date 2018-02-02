@@ -1,9 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
-const Todo = ({ completed, title, editing, onCompletedChange, index }) => {
+const Todo = ({
+  completed,
+  title,
+  editing,
+  index,
+  onCompletedChange,
+  onDoubleClick,
+  onFinishEditing
+}) => {
+  const classes = classNames({ completed, editing })
+
   return (
-    <li className={completed ? 'completed' : ''}>
+    <li className={classes}>
       <div className="view">
         <input
           className="toggle"
@@ -11,10 +22,19 @@ const Todo = ({ completed, title, editing, onCompletedChange, index }) => {
           checked={completed}
           onChange={e => onCompletedChange(index, e.target.checked)}
         />
-        <label>{title}</label>
+        <label onDoubleClick={() => onDoubleClick(index)}>{title}</label>
         <button className="destroy" />
       </div>
-      <input className="edit" value="Create a TodoMVC template" readOnly />
+      <input
+        className="edit"
+        defaultValue={title}
+        onKeyDown={e => {
+          if (e.keyCode === 13) {
+            onFinishEditing(index, e.target.value)
+          }
+        }}
+        onBlur={e => onFinishEditing(index, e.target.value)}
+      />
     </li>
   )
 }
@@ -24,6 +44,8 @@ Todo.propTypes = {
   title: PropTypes.string.isRequired,
   editing: PropTypes.bool.isRequired,
   onCompletedChange: PropTypes.func.isRequired,
+  onDoubleClick: PropTypes.func.isRequired,
+  onFinishEditing: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired
 }
 

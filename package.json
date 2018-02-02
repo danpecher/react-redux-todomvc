@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "dev": "parcel src/index.html"
+  },
   "dependencies": {
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -8,5 +11,8 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "todomvc-app-css": "^2.1.0"
+  },
+  "devDependencies": {
+    "classnames": "^2.2.5"
   }
 }
