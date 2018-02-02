@@ -8,7 +8,7 @@ const pluralize = (number, word) => {
   return `${word}s`
 }
 
-const Footer = ({itemsCount}) => {
+const Footer = ({itemsCount, displayClearBtn, onClearCompleted}) => {
   return (
     <footer className="footer">
       <span className="todo-count">
@@ -27,13 +27,15 @@ const Footer = ({itemsCount}) => {
           <a href="#/completed">Completed</a>
         </li>
       </ul>
-      <button className="clear-completed">Clear completed</button>
+      {displayClearBtn && <button className="clear-completed" onClick={onClearCompleted}>Clear completed</button>}
     </footer>
   )
 }
 
 Footer.propTypes = {
-  itemsCount: PropTypes.number.isRequired
+  itemsCount: PropTypes.number.isRequired,
+  displayClearBtn: PropTypes.bool.isRequired,
+  onClearCompleted: PropTypes.func.isRequired
 }
 
 export default Footer

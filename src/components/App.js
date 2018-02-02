@@ -3,15 +3,21 @@ import { connect } from 'react-redux'
 import Header from './Header'
 import Todos from './Todos'
 import Footer from './Footer'
-import { addTodo, toggleAll } from '../actions'
+import { addTodo, toggleAll, clearCompleted } from '../actions'
 
-const App = ({ todos, onEnterTodo, toggleAll }) => {
+const App = ({ todos, onEnterTodo, toggleAll, onClearCompleted }) => {
+  const incompleteItemsCount = todos.filter(todo => !todo.completed).length
+
   return (
     <div>
       <section className="todoapp">
         <Header onEnterTodo={onEnterTodo} />
         <Todos todos={todos} toggleAll={toggleAll} />
-        <Footer itemsCount={todos.filter(todo => !todo.completed).length} />
+        <Footer
+          itemsCount={incompleteItemsCount}
+          displayClearBtn={todos.length - incompleteItemsCount > 0}
+          onClearCompleted={onClearCompleted}
+        />
       </section>
 
       <footer className="info">
@@ -40,7 +46,8 @@ const mapDispatchToProps = dispatch => {
     },
     toggleAll: completed => {
       dispatch(toggleAll(completed))
-    }
+    },
+    onClearCompleted: () => dispatch(clearCompleted())
   }
 }
 
