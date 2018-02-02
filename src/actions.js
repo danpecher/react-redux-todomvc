@@ -37,6 +37,6 @@ export function updateTodo(index, value) {
   return {
     type: UPDATE_TODO,
     index,
-    value
+    value: value ? value.trim() : value
   }
 }

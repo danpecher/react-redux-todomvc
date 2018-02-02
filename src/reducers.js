@@ -48,16 +48,27 @@ export default (state = initialState, action) => {
         })
       }
     case UPDATE_TODO:
+      if (action.value === false) {
+        return {
+          todos: state.todos.map(todo =>
+            Object.assign({}, todo, { editing: false })
+          )
+        }
+      }
       return {
-        todos: state.todos.map((todo, i) => {
-          if (i !== action.index) {
-            return todo
-          }
-          return Object.assign({}, todo, {
-            title: action.value,
-            editing: false
+        todos: state.todos
+          .map((todo, i) => {
+            if (i !== action.index) {
+              return todo
+            }
+            return action.value.length > 0
+              ? Object.assign({}, todo, {
+                  title: action.value,
+                  editing: false
+                })
+              : false
           })
-        })
+          .filter(Boolean)
       }
     default:
       return state
