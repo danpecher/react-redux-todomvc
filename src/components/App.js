@@ -5,14 +5,16 @@ import Todos from './Todos'
 import Footer from './Footer'
 import { addTodo, toggleAll, clearCompleted } from '../actions'
 
-const App = ({ todos, onEnterTodo, toggleAll, onClearCompleted }) => {
+const App = ({ todos, onEnterTodo, toggleAll, onClearCompleted, filter }) => {
   const incompleteItemsCount = todos.filter(todo => !todo.completed).length
 
   return (
     <div>
       <section className="todoapp">
         <Header onEnterTodo={onEnterTodo} />
-        {todos.length > 0 && <Todos todos={todos} toggleAll={toggleAll} />}
+        {todos.length > 0 && (
+          <Todos todos={todos} toggleAll={toggleAll} filter={filter} />
+        )}
         {todos.length > 0 && (
           <Footer
             itemsCount={incompleteItemsCount}
@@ -37,7 +39,8 @@ const App = ({ todos, onEnterTodo, toggleAll, onClearCompleted }) => {
 
 const mapStateToProps = state => {
   return {
-    todos: state.todos
+    todos: state.todos,
+    filter: state.filter
   }
 }
 

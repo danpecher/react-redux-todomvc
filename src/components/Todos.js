@@ -2,7 +2,15 @@ import React from 'react'
 import TodoContainer from '../containers/TodoContainer'
 import PropTypes from 'prop-types'
 
-const Todos = ({ todos, toggleAll }) => {
+const isTodoVisible = (completed, filter) => {
+  return (
+    (filter === 'active' && !completed) ||
+    (filter === 'completed' && completed) ||
+    filter === 'all'
+  )
+}
+
+const Todos = ({ todos, toggleAll, filter }) => {
   return (
     <section className="main">
       <input
@@ -15,23 +23,26 @@ const Todos = ({ todos, toggleAll }) => {
       />
       <label htmlFor="toggle-all">Mark all as complete</label>
       <ul className="todo-list">
-        {todos.map((todo, i) => (
-          <TodoContainer
-            key={i}
-            index={i}
-            title={todo.title}
-            completed={todo.completed}
-            editing={todo.editing}
-          />
-        ))}
+        {todos
+          .filter(todo => isTodoVisible(todo.completed, filter))
+          .map((todo, i) => (
+            <TodoContainer
+              key={i}
+              index={i}
+              title={todo.title}
+              completed={todo.completed}
+              editing={todo.editing}
+            />
+          ))}
       </ul>
     </section>
   )
 }
 
 Todos.propTypes = {
-  todos: PropTypes.array,
-  toggleAll: PropTypes.func
+  todos: PropTypes.array.isRequired,
+  toggleAll: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired
 }
 
 export default Todos

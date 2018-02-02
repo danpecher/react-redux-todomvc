@@ -5,6 +5,7 @@ export const EDIT_TODO = 'EDIT_TODO'
 export const UPDATE_TODO = 'UPDATE_TODO'
 export const REMOVE_TODO = 'REMOVE_TODO'
 export const CLEAR_COMPLETED = 'CLEAR_COMPLETED'
+export const FILTER_TODOS = 'FILTER_TODOS'
 
 export function addTodo(title) {
   return {
@@ -53,5 +54,12 @@ export function removeTodo(index) {
 export function clearCompleted() {
   return {
     type: CLEAR_COMPLETED
+  }
+}
+
+export function filterTodos(filter) {
+  return {
+    type: FILTER_TODOS,
+    filter
   }
 }

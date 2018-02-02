@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import FilterLinks from './FilterLinks'
 
 const pluralize = (number, word) => {
   if (number === 1) {
@@ -14,19 +15,7 @@ const Footer = ({ itemsCount, displayClearBtn, onClearCompleted }) => {
       <span className="todo-count">
         <strong>{itemsCount}</strong> {pluralize(itemsCount, 'item')} left
       </span>
-      <ul className="filters">
-        <li>
-          <a className="selected" href="#/">
-            All
-          </a>
-        </li>
-        <li>
-          <a href="#/active">Active</a>
-        </li>
-        <li>
-          <a href="#/completed">Completed</a>
-        </li>
-      </ul>
+      <FilterLinks />
       {displayClearBtn && (
         <button className="clear-completed" onClick={onClearCompleted}>
           Clear completed
