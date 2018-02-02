@@ -12,12 +12,14 @@ const App = ({ todos, onEnterTodo, toggleAll, onClearCompleted }) => {
     <div>
       <section className="todoapp">
         <Header onEnterTodo={onEnterTodo} />
-        <Todos todos={todos} toggleAll={toggleAll} />
-        <Footer
-          itemsCount={incompleteItemsCount}
-          displayClearBtn={todos.length - incompleteItemsCount > 0}
-          onClearCompleted={onClearCompleted}
-        />
+        {todos.length > 0 && <Todos todos={todos} toggleAll={toggleAll} />}
+        {todos.length > 0 && (
+          <Footer
+            itemsCount={incompleteItemsCount}
+            displayClearBtn={todos.length - incompleteItemsCount > 0}
+            onClearCompleted={onClearCompleted}
+          />
+        )}
       </section>
 
       <footer className="info">
