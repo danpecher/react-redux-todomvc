@@ -25,7 +25,8 @@ class Todo extends Component {
       index,
       onCompletedChange,
       onDoubleClick,
-      onFinishEditing
+      onFinishEditing,
+      onRemove
     } = this.props
     const classes = classNames({ completed, editing })
 
@@ -49,7 +50,7 @@ class Todo extends Component {
           >
             {title}
           </label>
-          <button className="destroy" />
+          <button className="destroy" onClick={() => onRemove(index)} />
         </div>
         <input
           className="edit"
@@ -78,6 +79,7 @@ Todo.propTypes = {
   onCompletedChange: PropTypes.func.isRequired,
   onDoubleClick: PropTypes.func.isRequired,
   onFinishEditing: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired
 }
 

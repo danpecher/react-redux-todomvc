@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Todo from '../components/Todo'
-import { editTodo, toggleTodo, updateTodo } from '../actions'
+import { editTodo, removeTodo, toggleTodo, updateTodo } from '../actions'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -13,6 +13,9 @@ const mapDispatchToProps = dispatch => {
     },
     onFinishEditing: (index, value) => {
       return dispatch(updateTodo(index, value))
+    },
+    onRemove: index => {
+      return dispatch(removeTodo(index))
     }
   }
 }

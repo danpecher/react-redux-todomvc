@@ -2,6 +2,7 @@ import {
   ADD_TODO,
   CLEAR_COMPLETED,
   EDIT_TODO,
+  REMOVE_TODO,
   TOGGLE_ALL,
   TOGGLE_TODO,
   UPDATE_TODO
@@ -74,6 +75,11 @@ export default (state = initialState, action) => {
               : false
           })
           .filter(Boolean)
+      }
+      break
+    case REMOVE_TODO:
+      result = {
+        todos: state.todos.filter((todo, i) => i !== action.index)
       }
       break
     case CLEAR_COMPLETED:
